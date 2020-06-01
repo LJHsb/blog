@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="spring Resource"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/blog/default" title="青青草原">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2020/05/28/spring Resource/"/>
+
+
+<meta name="description" content="Resource是对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如FileSystemResource、ByteArrayResource等。 Resource作为所有资源统一抽象，它定义了一些通用的方法，由子类 AbstractResource 提供统一的默认实现。 Resource的通用方法： 12345678910111213141516171819202122232425262">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring Resource">
+<meta property="og:url" content="http://yoursite.com/2020/05/28/spring%20Resource/index.html">
+<meta property="og:site_name" content="青青草原">
+<meta property="og:description" content="Resource是对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如FileSystemResource、ByteArrayResource等。 Resource作为所有资源统一抽象，它定义了一些通用的方法，由子类 AbstractResource 提供统一的默认实现。 Resource的通用方法： 12345678910111213141516171819202122232425262">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/05/29/tmogDx.png">
+<meta property="article:published_time" content="2020-05-28T10:04:24.694Z">
+<meta property="article:modified_time" content="2020-05-29T07:38:38.319Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/05/29/tmogDx.png">
+
+
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> spring Resource - 青青草原 </title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/blog/." class="logo">青青草原</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/blog/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          spring Resource
+        
+      </h1>
+
+      <time class="post-time">
+          May 28 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>Resource是对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如FileSystemResource、ByteArrayResource等。</p>
+<p>Resource作为所有资源统一抽象，它定义了一些通用的方法，由子类 AbstractResource 提供统一的默认实现。</p>
+<p>Resource的通用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">public interface Resource extends InputStreamSource &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 资源是否存在</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	boolean exists();</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 资源是否可读</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	default boolean isReadable() &#123;</span><br><span class="line">		return exists();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 资源所代表的句柄是否被一个 stream 打开了</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	default boolean isOpen() &#123;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 是否为文件</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	default boolean isFile() &#123;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取资源的URL</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	URL getURL() throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取资源的URI</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	URI getURI() throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取文件</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	File getFile() throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 返回ReadableByteChannel</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	default ReadableByteChannel readableChannel() throws IOException &#123;</span><br><span class="line">		return Channels.newChannel(getInputStream());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 资源内容长度</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	long contentLength() throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 资源最后修改的时间</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	long lastModified() throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 根据相对路径创建一个新的资源</span><br><span class="line">	 * @param relativePath</span><br><span class="line">	 * @return</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	Resource createRelative(String relativePath) throws IOException;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取文件名</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Nullable</span><br><span class="line">	String getFilename();</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 返回对资源的描述</span><br><span class="line">	 * @return</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	String getDescription();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类结构图：<br><img src="https://s1.ax1x.com/2020/05/29/tmogDx.png" alt="image"></p>
+<p>其中Resource根据资源的不同类型有不同的实现</p>
+<p>1.AbstractResource是Resource 接口的默认抽象实现。它实现了 Resource 接口的大部分的公共实现，是Resource接口中的重点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br></pre></td><td class="code"><pre><span class="line">public abstract class AbstractResource implements Resource &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 判断文件是否存在</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean exists() &#123;</span><br><span class="line">		&#x2F;&#x2F; Try file existence: can we find the file in the file system?</span><br><span class="line">		&#x2F;&#x2F;判断是否是文件</span><br><span class="line">		if (isFile()) &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				return getFile().exists();</span><br><span class="line">			&#125;</span><br><span class="line">			catch (IOException ex) &#123;</span><br><span class="line">				Log logger &#x3D; LogFactory.getLog(getClass());</span><br><span class="line">				if (logger.isDebugEnabled()) &#123;</span><br><span class="line">					logger.debug(&quot;Could not retrieve File for existence check of &quot; + getDescription(), ex);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F; Fall back to stream existence: can we open the stream?</span><br><span class="line"></span><br><span class="line">		try &#123;</span><br><span class="line">			getInputStream().close();</span><br><span class="line">			return true;</span><br><span class="line">		&#125;</span><br><span class="line">		catch (Throwable ex) &#123;</span><br><span class="line">			Log logger &#x3D; LogFactory.getLog(getClass());</span><br><span class="line">			if (logger.isDebugEnabled()) &#123;</span><br><span class="line">				logger.debug(&quot;Could not retrieve InputStream for existence check of &quot; + getDescription(), ex);</span><br><span class="line">			&#125;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 是否可读</span><br><span class="line">	 * This implementation always returns &#123;@code true&#125; for a resource</span><br><span class="line">	 * that &#123;@link #exists() exists&#125; (revised as of 5.1).</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isReadable() &#123;</span><br><span class="line">		return exists();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 是否打开</span><br><span class="line">	 * This implementation always returns &#123;@code false&#125;.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isOpen() &#123;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 是否是文件 由子类实现</span><br><span class="line">	 * This implementation always returns &#123;@code false&#125;.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean isFile() &#123;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取URL 交给子类实现</span><br><span class="line">	 * This implementation throws a FileNotFoundException, assuming</span><br><span class="line">	 * that the resource cannot be resolved to a URL.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public URL getURL() throws IOException &#123;</span><br><span class="line">		throw new FileNotFoundException(getDescription() + &quot; cannot be resolved to URL&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 基于 getURL() 返回的 URL 构建 URI</span><br><span class="line">	 * This implementation builds a URI based on the URL returned</span><br><span class="line">	 * by &#123;@link #getURL()&#125;.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public URI getURI() throws IOException &#123;</span><br><span class="line">		URL url &#x3D; getURL();</span><br><span class="line">		try &#123;</span><br><span class="line">			return ResourceUtils.toURI(url);</span><br><span class="line">		&#125;</span><br><span class="line">		catch (URISyntaxException ex) &#123;</span><br><span class="line">			throw new NestedIOException(&quot;Invalid URI [&quot; + url + &quot;]&quot;, ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取文件 交给子类实现</span><br><span class="line">	 * This implementation throws a FileNotFoundException, assuming</span><br><span class="line">	 * that the resource cannot be resolved to an absolute file path.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public File getFile() throws IOException &#123;</span><br><span class="line">		throw new FileNotFoundException(getDescription() + &quot; cannot be resolved to absolute file path&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 *  根据 getInputStream() 的返回结果构建 ReadableByteChannel</span><br><span class="line">	 * This implementation returns &#123;@link Channels#newChannel(InputStream)&#125;</span><br><span class="line">	 * with the result of &#123;@link #getInputStream()&#125;.</span><br><span class="line">	 * &lt;p&gt;This is the same as in &#123;@link Resource&#125;&#39;s corresponding default method</span><br><span class="line">	 * but mirrored here for efficient JVM-level dispatching in a class hierarchy.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public ReadableByteChannel readableChannel() throws IOException &#123;</span><br><span class="line">		return Channels.newChannel(getInputStream());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取资源的长度，这个资源内容长度实际就是资源的字节长度，通过全部读取一遍来判断</span><br><span class="line">	 * This method reads the entire InputStream to determine the content length.</span><br><span class="line">	 * &lt;p&gt;For a custom sub-class of &#123;@code InputStreamResource&#125;, we strongly</span><br><span class="line">	 * recommend overriding this method with a more optimal implementation, e.g.</span><br><span class="line">	 * checking File length, or possibly simply returning -1 if the stream can</span><br><span class="line">	 * only be read once.</span><br><span class="line">	 * @see #getInputStream()</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public long contentLength() throws IOException &#123;</span><br><span class="line">		InputStream is &#x3D; getInputStream();</span><br><span class="line">		try &#123;</span><br><span class="line">			long size &#x3D; 0;</span><br><span class="line">			byte[] buf &#x3D; new byte[256];</span><br><span class="line">			int read;</span><br><span class="line">			while ((read &#x3D; is.read(buf)) !&#x3D; -1) &#123;</span><br><span class="line">				size +&#x3D; read;</span><br><span class="line">			&#125;</span><br><span class="line">			return size;</span><br><span class="line">		&#125;</span><br><span class="line">		finally &#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				is.close();</span><br><span class="line">			&#125;</span><br><span class="line">			catch (IOException ex) &#123;</span><br><span class="line">				Log logger &#x3D; LogFactory.getLog(getClass());</span><br><span class="line">				if (logger.isDebugEnabled()) &#123;</span><br><span class="line">					logger.debug(&quot;Could not close content-length InputStream for &quot; + getDescription(), ex);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 返回资源最后的修改时间</span><br><span class="line">	 * This implementation checks the timestamp of the underlying File,</span><br><span class="line">	 * if available.</span><br><span class="line">	 * @see #getFileForLastModifiedCheck()</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public long lastModified() throws IOException &#123;</span><br><span class="line">		File fileToCheck &#x3D; getFileForLastModifiedCheck();</span><br><span class="line">		long lastModified &#x3D; fileToCheck.lastModified();</span><br><span class="line">		if (lastModified &#x3D;&#x3D; 0L &amp;&amp; !fileToCheck.exists()) &#123;</span><br><span class="line">			throw new FileNotFoundException(getDescription() +</span><br><span class="line">					&quot; cannot be resolved in the file system for checking its last-modified timestamp&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		return lastModified;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 *</span><br><span class="line">	 * Determine the File to use for timestamp checking.</span><br><span class="line">	 * &lt;p&gt;The default implementation delegates to &#123;@link #getFile()&#125;.</span><br><span class="line">	 * @return the File to use for timestamp checking (never &#123;@code null&#125;)</span><br><span class="line">	 * @throws FileNotFoundException if the resource cannot be resolved as</span><br><span class="line">	 * an absolute file path, i.e. is not available in a file system</span><br><span class="line">	 * @throws IOException in case of general resolution&#x2F;reading failures</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	protected File getFileForLastModifiedCheck() throws IOException &#123;</span><br><span class="line">		return getFile();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 根据相对路径创建一个新的资源 交给子类实现</span><br><span class="line">	 * This implementation throws a FileNotFoundException, assuming</span><br><span class="line">	 * that relative resources cannot be created for this resource.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public Resource createRelative(String relativePath) throws IOException &#123;</span><br><span class="line">		throw new FileNotFoundException(&quot;Cannot create a relative resource for &quot; + getDescription());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 获取文件名称 交给子类实现</span><br><span class="line">	 * This implementation always returns &#123;@code null&#125;,</span><br><span class="line">	 * assuming that this resource type does not have a filename.</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	@Nullable</span><br><span class="line">	public String getFilename() &#123;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * This implementation compares description strings.</span><br><span class="line">	 * @see #getDescription()</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public boolean equals(@Nullable Object other) &#123;</span><br><span class="line">		return (this &#x3D;&#x3D; other || (other instanceof Resource &amp;&amp;</span><br><span class="line">				((Resource) other).getDescription().equals(getDescription())));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * This implementation returns the description&#39;s hash code.</span><br><span class="line">	 * @see #getDescription()</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public int hashCode() &#123;</span><br><span class="line">		return getDescription().hashCode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * This implementation returns the description of this resource.</span><br><span class="line">	 * @see #getDescription()</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return getDescription();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.FileSystemResource是对java.io.File类型的资源的封装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;**</span><br><span class="line"> * 从文件路径创建一个新的FileSystemResource</span><br><span class="line"> *&#x2F;</span><br><span class="line">public FileSystemResource(String path) &#123;</span><br><span class="line">	Assert.notNull(path, &quot;Path must not be null&quot;);</span><br><span class="line">	this.path &#x3D; StringUtils.cleanPath(path);</span><br><span class="line">	this.file &#x3D; new File(path);</span><br><span class="line">	this.filePath &#x3D; this.file.toPath();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 从File创建一个新的FileSystemResource</span><br><span class="line"> *&#x2F;</span><br><span class="line">public FileSystemResource(File file) &#123;</span><br><span class="line">	Assert.notNull(file, &quot;File must not be null&quot;);</span><br><span class="line">	this.path &#x3D; StringUtils.cleanPath(file.getPath());</span><br><span class="line">	this.file &#x3D; file;</span><br><span class="line">	this.filePath &#x3D; file.toPath();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 从Path创建一个新的FileSystemResource，通过NIO.2而非File执行所有文件系统交互</span><br><span class="line"> *&#x2F;</span><br><span class="line">public FileSystemResource(Path filePath) &#123;</span><br><span class="line">	Assert.notNull(filePath, &quot;Path must not be null&quot;);</span><br><span class="line">	this.path &#x3D; StringUtils.cleanPath(filePath.toString());</span><br><span class="line">	this.file &#x3D; null;</span><br><span class="line">	this.filePath &#x3D; filePath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.ByteArrayResource是对字节数组提供的数据的封装。如果通过 InputStream 形式访问该类型的资源，该实现会根据字节数组的数据构造一个相应的 ByteArrayInputStream。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">   &#x2F;**</span><br><span class="line"> * 此实现返回基础字节数组的ByteArrayInputStream。</span><br><span class="line"> * This implementation returns a ByteArrayInputStream for the</span><br><span class="line"> * underlying byte array.</span><br><span class="line"> * @see java.io.ByteArrayInputStream</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Override</span><br><span class="line">public InputStream getInputStream() throws IOException &#123;</span><br><span class="line">	return new ByteArrayInputStream(this.byteArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.UrlResource是对java.net.URL类型资源的封装。内部委派 URL 进行具体的资源操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">	 * 根据给定的URI对象创建一个新的UrlResource。</span><br><span class="line">	 * Create a new &#123;@code UrlResource&#125; based on the given URI object.</span><br><span class="line">	 * @param uri a URI</span><br><span class="line">	 * @throws MalformedURLException if the given URL path is not valid</span><br><span class="line">	 * @since 2.5</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public UrlResource(URI uri) throws MalformedURLException &#123;</span><br><span class="line">		Assert.notNull(uri, &quot;URI must not be null&quot;);</span><br><span class="line">		this.uri &#x3D; uri;</span><br><span class="line">		this.url &#x3D; uri.toURL();</span><br><span class="line">		this.cleanedUrl &#x3D; getCleanedUrl(this.url, uri.toString());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**</span><br><span class="line">	 * 根据给定的URL对象创建一个新的UrlResource</span><br><span class="line">	 * Create a new &#123;@code UrlResource&#125; based on the given URL object.</span><br><span class="line">	 * @param url a URL</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public UrlResource(URL url) &#123;</span><br><span class="line">		Assert.notNull(url, &quot;URL must not be null&quot;);</span><br><span class="line">		this.url &#x3D; url;</span><br><span class="line">		this.cleanedUrl &#x3D; getCleanedUrl(this.url, url.toString());</span><br><span class="line">		this.uri &#x3D; null;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;**+</span><br><span class="line">	 * 根据URL路径创建一个新的UrlResource</span><br><span class="line">	 * Create a new &#123;@code UrlResource&#125; based on a URL path.</span><br><span class="line">	 * &lt;p&gt;Note: The given path needs to be pre-encoded if necessary.</span><br><span class="line">	 * @param path a URL path</span><br><span class="line">	 * @throws MalformedURLException if the given URL path is not valid</span><br><span class="line">	 * @see java.net.URL#URL(String)</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	public UrlResource(String path) throws MalformedURLException &#123;</span><br><span class="line">		Assert.notNull(path, &quot;Path must not be null&quot;);</span><br><span class="line">		this.uri &#x3D; null;</span><br><span class="line">		this.url &#x3D; new URL(path);</span><br><span class="line">		this.cleanedUrl &#x3D; getCleanedUrl(this.url, path);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>5.ClassPathResource是class path 类型资源的实现。使用给定的 ClassLoader 或者给定的 Class 来加载资源。</p>
+<p>6.InputStreamResource是将给定的 InputStream 作为一种资源的 Resource 的实现类。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/blog/2020/05/29/spring%20ResourceLoader/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">spring ResourceLoader</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">John Doe.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/blog/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/blog/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
