@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="spring Ioc"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/blog/default" title="青青草原">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2020/06/02/spring Ioc/"/>
+
+
+<meta name="description" content="ioc是控制反转，它是可以降低对象耦合关系的一种设计思想，在开发中，ioc意味着将设计好的对象交给容器控制，而不是传统的在对象内部直接控制。Ioc很好的体现了面向对象设计法则之一：好莱坞法则 “别找我们，我们找你”；就是由ioc容器帮对象找相应的依赖对象并注入，不是由对象主动去找。 控制反转  谁控制谁，控制了什么：传统的java SE程序设计，我们直接在对象内部通过new创建一个对象，是程序主动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring Ioc">
+<meta property="og:url" content="http://yoursite.com/2020/06/02/spring%20Ioc/index.html">
+<meta property="og:site_name" content="青青草原">
+<meta property="og:description" content="ioc是控制反转，它是可以降低对象耦合关系的一种设计思想，在开发中，ioc意味着将设计好的对象交给容器控制，而不是传统的在对象内部直接控制。Ioc很好的体现了面向对象设计法则之一：好莱坞法则 “别找我们，我们找你”；就是由ioc容器帮对象找相应的依赖对象并注入，不是由对象主动去找。 控制反转  谁控制谁，控制了什么：传统的java SE程序设计，我们直接在对象内部通过new创建一个对象，是程序主动">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/02/tYori4.jpg">
+<meta property="article:published_time" content="2020-06-02T02:09:00.721Z">
+<meta property="article:modified_time" content="2020-06-03T07:37:18.082Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/02/tYori4.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> spring Ioc - 青青草原 </title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/blog/." class="logo">青青草原</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/blog/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          spring Ioc
+        
+      </h1>
+
+      <time class="post-time">
+          Jun 02 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>ioc是控制反转，它是可以降低对象耦合关系的一种设计思想，在开发中，ioc意味着将设计好的对象交给容器控制，而不是传统的在对象内部直接控制。Ioc很好的体现了面向对象设计法则之一：好莱坞法则 “别找我们，我们找你”；就是由ioc容器帮对象找相应的依赖对象并注入，不是由对象主动去找。</p>
+<p>控制反转</p>
+<ul>
+<li>谁控制谁，控制了什么：传统的java SE程序设计，我们直接在对象内部通过new创建一个对象，是程序主动去创建依赖对象。而ioc是有一个容器来创建这些对象，是由ioc容器来控制对象的创建，所以是ioc容器控制了对象，控制的其实不止对象，还有一些外部资源获取。</li>
+<li>为何是反转，哪些方面反转了：有反转就有正转，传统应用程序中，是由我们自己在对象中主动控制去直接获取依赖对象，这就是正转。而反转则是由容器来帮忙创建及注入依赖对象。因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转。依赖对象的获取被反转了。</li>
+</ul>
+<p>IOC的别名：依赖注入(DI)</p>
+<p>DI（dependency Injection）是依赖注入，是ioc在运行期间动态地将某种依赖关系注入到对象中。但DI并不完全等同ioc，DI是ioc实现的一种，还有依赖查找。</p>
+<p>依赖注入的四种方式</p>
+<ol>
+<li>构造器注入：就是被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">(B b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.b = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>set注入:对于 JavaBean 对象而言，我们一般都是通过 getter 和 setter 方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相对应的 setter 方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> B b;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setB</span><span class="params">(B b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.b = b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>接口注入:它是在一个接口中定义需要注入的信息，并通过接口完成注入</li>
+<li>注解注入：基于java的注解功能，在私有变量上加上 “@Autowired”等注解，不需要显式的定义以上三种代码，便可以让外部容器传入对应的对象。该方案相当于定义了public的set方法，但是因为没有真正的set方法，从而不会为了实现依赖注入导致暴露了不该暴露的接口(因为set方法只想让容器访问来注入而不希望其他依赖此类的对象访问)</li>
+</ol>
+<p>各个组件<br><img src="https://s1.ax1x.com/2020/06/02/tYori4.jpg" alt="image"></p>
+<p>左边黄色部分是ApplicationContext体系继承结构，右边是BeanFactory的结构体系，两个结构是典型模板方法设计模式的使用。<br>从该继承体系可以看出：</p>
+<ol>
+<li>BeanFactory是一个Bean工厂的最基本定义，里面包含了一个Bean工厂的基本方法，如#getBean(),#containsBean(),#isSingleton(),#isPrototype()等,是一个很纯粹的bean工厂，它不关注资源，资源位置，事件等。ApplicationContext是一个容器的最基本接口定义，它继承了BeanFactory，拥有它的基本的方法。同时继承了ApplicationEventPublisher、MessageSource、ResourcePatternResolver等接口，使其定义了一些额外的功能，如资源、事件等这些额外的功能。</li>
+<li>DefaultSingletonBeanRegistry ：对接口 SingletonBeanRegistry 各函数的实现</li>
+<li>HierarchicalBeanFactory ：继承 BeanFactory ，也就是在 BeanFactory 定义的功能的基础上增加了对parentFactory支持，它是分层的Bean工厂</li>
+<li>ConfigurableBeanFactory ：对HierarchicalBeanFactory接口进行增此增强，它还继承了另一个外来的接口SingletonBeanRegistry</li>
+<li>ListableBeanFactory ：根据各种条件获取 bean 的配直清单</li>
+<li>AbstractBeanFactory ：实现了ConfigurableBeanFactory大部分功能</li>
+<li>AutowireCapableBeanFactory ：提供创 bean 、自动注入、初始化以及应用 an 的后处理器，它是自动装配的Bean工厂</li>
+<li>AbstractAutowireCapabeBeanFactory :继承了AbstractBeanFactory 并对接口 AutowireCapableBeanFactory 进行实现</li>
+<li>ConfigurableListableBeanFactory是一个更强大的接口，继承了ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory。</li>
+</ol>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/blog/2020/05/29/spring%20ResourceLoader/">
+        <span class="next-text nav-default">spring ResourceLoader</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">John Doe.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/blog/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/blog/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
