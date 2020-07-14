@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="we"/>
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/blog/default" title="青青草原">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2020/07/14/we/"/>
+
+
+<meta name="description" content="数据一致性分发系统架构微服务后，根据微服务独立数据源的思想，每个微服务应该有自己独立的数据源。但是不同的微服务之间，难免需要分享一些数据，这个就是数据的分发。 例如：微服务A拥有数据，但微服务X,Y,Z也需要一份A的数据，这个时候就需要微服务A的数据分发到X,Y,Z三个服务。 分布式系统中有网络存在，而且网络难免会有延迟，也不一定可靠，这就会造成数据分发的不可靠和不一致问题。这个问题如果不解决，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="we">
+<meta property="og:url" content="http://yoursite.com/2020/07/14/we/index.html">
+<meta property="og:site_name" content="青青草原">
+<meta property="og:description" content="数据一致性分发系统架构微服务后，根据微服务独立数据源的思想，每个微服务应该有自己独立的数据源。但是不同的微服务之间，难免需要分享一些数据，这个就是数据的分发。 例如：微服务A拥有数据，但微服务X,Y,Z也需要一份A的数据，这个时候就需要微服务A的数据分发到X,Y,Z三个服务。 分布式系统中有网络存在，而且网络难免会有延迟，也不一定可靠，这就会造成数据分发的不可靠和不一致问题。这个问题如果不解决，这">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUwEAs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUccXq.png">
+<meta property="article:published_time" content="2020-07-14T10:03:58.995Z">
+<meta property="article:modified_time" content="2020-07-14T10:04:20.685Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/14/UUwEAs.png">
+
+
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> we - 青青草原 </title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/blog/." class="logo">青青草原</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/blog/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          we
+        
+      </h1>
+
+      <time class="post-time">
+          Jul 14 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h2 id="数据一致性分发"><a href="#数据一致性分发" class="headerlink" title="数据一致性分发"></a>数据一致性分发</h2><p>系统架构微服务后，根据微服务独立数据源的思想，每个微服务应该有自己独立的数据源。但是不同的微服务之间，难免需要分享一些数据，这个就是数据的分发。</p>
+<p>例如：微服务A拥有数据，但微服务X,Y,Z也需要一份A的数据，这个时候就需要微服务A的数据分发到X,Y,Z三个服务。</p>
+<p>分布式系统中有网络存在，而且网络难免会有延迟，也不一定可靠，这就会造成数据分发的不可靠和不一致问题。这个问题如果不解决，这就会造成两个或多个微服务看到的数据是不一样的。如果这些数据是关键的业务数据，那么对用户来说，这将是不可接受的。</p>
+<p>数据分发场景：<br><img src="https://s1.ax1x.com/2020/07/14/UUwEAs.png" alt="image"><br>订单服务OrderService有一个独立的数据库，同时周边还有一些系统需要订单的数据。</p>
+<ol>
+<li>更新缓存：缓存系统为了提升订单的访问性能，可以把一些频繁访问的订单数据通过redis缓存起来。</li>
+<li>fulfillmentService:订单履行系统需要订单的数据，实现订单履行的功能。</li>
+<li>elastic search:需要订单的数据，可以支持前台用户或后台运营快速查询订单信息。</li>
+<li>传统数据仓库：需要订单数据支持对订单数据的分析和挖掘。</li>
+</ol>
+<p>为了获得这些数据，这些系统可以定期去订单服务查询最新的数据。这就是拉模式，但是拉模式有两个大问题。</p>
+<ol>
+<li>拉数据会有延迟，也就是说拉到的数据并不实时</li>
+<li>如果频繁拉，加上外围的系统众多，会造成订单服务的性能问题，严重的时候可能会把订单服务给拉挂了。</li>
+</ol>
+<p>当企业规模发展到一定的阶段，还是需要数据考虑数据分发技术，将业务数据同步分发到需要这些数据的服务。</p>
+<p>解决方案：</p>
+<p>业务场景：有一个微服务A，它需要将数据写入db，同时还要把数据写入mq。</p>
+<ol>
+<li>在微服务A中，弄一个双写就搞定了？<ol>
+<li>问题没有这么简单，关键是，如何保证双写的事务性。</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span>(rollbackFor = Exception<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">void</span> <span class="title">updateDbThenSendMsgInTransaction</span>()</span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//1.修改db</span></span><br><span class="line">        <span class="keyword">boolean</span> result = dao.update(model);</span><br><span class="line">        <span class="comment">//2.db修改成功后</span></span><br><span class="line">        <span class="keyword">if</span>(result)&#123;</span><br><span class="line">            <span class="comment">//3.发送至mq</span></span><br><span class="line">            mq.send(model);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//4...</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>修改db</li>
+<li>db修改成功后，可以向mq发送消息</li>
+<li>向mq发送消息</li>
+<li>mq消息发送无异常，可以执行其他操作。证明数据双写成功了。</li>
+</ol>
+<p>如果发消息失败，会抛异常，容器会执行方法上的事务性回滚，第一步的数据库操作也会回滚。但是在第3步发消息抛出异常了，并不一定说发消息失败了，可能只是由于网络异常抖动，而造成的抛出异常。</p>
+<p>模式一：事务性发件箱（Transactional Outbox）<br><img src="https://s1.ax1x.com/2020/07/14/UUccXq.png" alt="image"><br>在OrderService数据库中，除了订单Order表，为了实现数据事务性双写，还需要添加一个发件箱outbox表。order表和outbox表都在同一个数据库中，对他们同时进行更新，通过数据库的事务机制，可以实现事务性更新。</p>
+<p>例：orderService需要添加一个订单。</p>
+<ol>
+<li>orderService先将新订单数据写入order表，然后再向outbox表中写入一条订单新增记录，这两步操作是放在一个事务中，可以实现事务性的写入。</li>
+<li>引入一个消息中继，MessageRelay这样的角色，它负责定期拉取outbox表中的新数据。</li>
+<li>将新数据发送到mq中，如果写入mq确认成功，MessageRelay就可以将outbox表中对应的记录更新为以消费。这边写入mq会出现一个问题，当遇到网络异常抖动时，数据可能已经写入mq中，但是MessageRelay并没有得到确认。这时候它会重发，直到消息确认成功为止。所以这边也是一个at least once（至少交付一次）的一个消费语义。消息可能会被投递多次，因此在mq后边的消费方，需要做消息的去重。</li>
+</ol>
+<p>事务发件箱这种模式是可以保证对order表的修改以及将对应的事件发送到mq，这两个动作是可以实现事务性的。也就是实现数据分发的事务性。</p>
+<h2 id="数据聚合join"><a href="#数据聚合join" class="headerlink" title="数据聚合join"></a>数据聚合join</h2><p>数据库join的动作，开销是比较大的，并且随着数据量的增大，join操作的开销会越来越大。在分布式的微服务系统中，join问题并没有消失。它从本地的join变成了分布式跨库跨服务的join，也称为服务的聚合Join。</p>
+<h2 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h2><p>传统的单机事务已经有了成熟的落地方案。在spring开发中，开发人员通常只需要添加一个事务注解就可以轻松搞定单库事务。但是在微服务场景下，根据微服务独立数据源思想，如果我们要同时更新两个服务，那就涉及到分布式事务的问题了。</p>
+<h2 id="单体系统解耦拆分"><a href="#单体系统解耦拆分" class="headerlink" title="单体系统解耦拆分"></a>单体系统解耦拆分</h2><p>企业通常从单体单库应用开始发展，当业务和团队规模发展到一定的体量，单体系统就会成为阻碍企业进一步规模化发展的瓶颈。这时候就需要对单体系统进行拆分。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/blog/2020/06/02/spring%20Ioc/">
+        <span class="next-text nav-default">spring Ioc</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">John Doe.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/blog/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/blog/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/blog/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
