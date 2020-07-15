@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/07/15/UdFSVs.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/07/15/UdNg0J.png">
 <meta property="article:published_time" content="2020-07-14T10:03:58.995Z">
-<meta property="article:modified_time" content="2020-07-15T09:20:12.158Z">
+<meta property="article:modified_time" content="2020-07-15T09:31:07.008Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/07/14/UUwEAs.png">
@@ -175,8 +175,9 @@
 <li>阿里Canal(<a href="https://github.com/alibaba/canal" target="_blank" rel="noopener">https://github.com/alibaba/canal</a>)</li>
 <li>Readhat Debezium</li>
 <li>Zendesk Maxwell</li>
-<li>Airbnb SpinalTap<h1 id="数据聚合join"><a href="#数据聚合join" class="headerlink" title="数据聚合join"></a>数据聚合join</h1>数据库join的动作，开销是比较大的，并且随着数据量的增大，join操作的开销会越来越大。在分布式的微服务系统中，join问题并没有消失。它从本地的join变成了分布式跨库跨服务的join，也称为服务的聚合Join。</li>
+<li>Airbnb SpinalTap</li>
 </ul>
+<h1 id="数据聚合join"><a href="#数据聚合join" class="headerlink" title="数据聚合join"></a>数据聚合join</h1><p>数据库join的动作，开销是比较大的，并且随着数据量的增大，join操作的开销会越来越大。在分布式的微服务系统中，join问题并没有消失。它从本地的join变成了分布式跨库跨服务的join，也称为服务的聚合Join。</p>
 <h3 id="1-单库join的问题："><a href="#1-单库join的问题：" class="headerlink" title="1. 单库join的问题："></a>1. 单库join的问题：</h3><p>join是一种比较复杂的运算，是有开销的，当数据量少的时候，这种开销还能接收。但是当企业规模逐渐变大，数据库中的数据量和复杂度也会越变越大，相应的join的开销也会越变越大。于是join慢的问题，也会更突出。通常表现为用户查询慢，严重的时候可能会导致数据库繁忙、不响应或者是宕机。单库join慢的问题，是目前具有一定流量网站的普遍的痛点问题。</p>
 <h3 id="2-分布式聚合join的问题："><a href="#2-分布式聚合join的问题：" class="headerlink" title="2. 分布式聚合join的问题："></a>2. 分布式聚合join的问题：</h3><p>如有两个基础领域服务：</p>
 <pre><code>1.customer-service（负责客户数据的管理） 
