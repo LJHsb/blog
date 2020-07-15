@@ -42,8 +42,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUwEAs.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUccXq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/15/UdFSVs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/15/UdNg0J.png">
 <meta property="article:published_time" content="2020-07-14T10:03:58.995Z">
-<meta property="article:modified_time" content="2020-07-14T10:04:20.685Z">
+<meta property="article:modified_time" content="2020-07-15T09:20:12.158Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/07/14/UUwEAs.png">
@@ -121,7 +123,7 @@
 
     
             <div class="post-content">
-            <h2 id="数据一致性分发"><a href="#数据一致性分发" class="headerlink" title="数据一致性分发"></a>数据一致性分发</h2><p>系统架构微服务后，根据微服务独立数据源的思想，每个微服务应该有自己独立的数据源。但是不同的微服务之间，难免需要分享一些数据，这个就是数据的分发。</p>
+            <h1 id="数据一致性分发"><a href="#数据一致性分发" class="headerlink" title="数据一致性分发"></a>数据一致性分发</h1><p>系统架构微服务后，根据微服务独立数据源的思想，每个微服务应该有自己独立的数据源。但是不同的微服务之间，难免需要分享一些数据，这个就是数据的分发。</p>
 <p>例如：微服务A拥有数据，但微服务X,Y,Z也需要一份A的数据，这个时候就需要微服务A的数据分发到X,Y,Z三个服务。</p>
 <p>分布式系统中有网络存在，而且网络难免会有延迟，也不一定可靠，这就会造成数据分发的不可靠和不一致问题。这个问题如果不解决，这就会造成两个或多个微服务看到的数据是不一样的。如果这些数据是关键的业务数据，那么对用户来说，这将是不可接受的。</p>
 <p>数据分发场景：<br><img src="https://s1.ax1x.com/2020/07/14/UUwEAs.png" alt="image"><br>订单服务OrderService有一个独立的数据库，同时周边还有一些系统需要订单的数据。</p>
@@ -153,7 +155,7 @@
 <li>mq消息发送无异常，可以执行其他操作。证明数据双写成功了。</li>
 </ol>
 <p>如果发消息失败，会抛异常，容器会执行方法上的事务性回滚，第一步的数据库操作也会回滚。但是在第3步发消息抛出异常了，并不一定说发消息失败了，可能只是由于网络异常抖动，而造成的抛出异常。</p>
-<p>模式一：事务性发件箱（Transactional Outbox）<br><img src="https://s1.ax1x.com/2020/07/14/UUccXq.png" alt="image"><br>在OrderService数据库中，除了订单Order表，为了实现数据事务性双写，还需要添加一个发件箱outbox表。order表和outbox表都在同一个数据库中，对他们同时进行更新，通过数据库的事务机制，可以实现事务性更新。</p>
+<h3 id="模式一：事务性发件箱（Transactional-Outbox）"><a href="#模式一：事务性发件箱（Transactional-Outbox）" class="headerlink" title="模式一：事务性发件箱（Transactional Outbox）"></a>模式一：事务性发件箱（Transactional Outbox）</h3><p><img src="https://s1.ax1x.com/2020/07/14/UUccXq.png" alt="image"><br>在OrderService数据库中，除了订单Order表，为了实现数据事务性双写，还需要添加一个发件箱outbox表。order表和outbox表都在同一个数据库中，对他们同时进行更新，通过数据库的事务机制，可以实现事务性更新。</p>
 <p>例：orderService需要添加一个订单。</p>
 <ol>
 <li>orderService先将新订单数据写入order表，然后再向outbox表中写入一条订单新增记录，这两步操作是放在一个事务中，可以实现事务性的写入。</li>
@@ -161,9 +163,55 @@
 <li>将新数据发送到mq中，如果写入mq确认成功，MessageRelay就可以将outbox表中对应的记录更新为以消费。这边写入mq会出现一个问题，当遇到网络异常抖动时，数据可能已经写入mq中，但是MessageRelay并没有得到确认。这时候它会重发，直到消息确认成功为止。所以这边也是一个at least once（至少交付一次）的一个消费语义。消息可能会被投递多次，因此在mq后边的消费方，需要做消息的去重。</li>
 </ol>
 <p>事务发件箱这种模式是可以保证对order表的修改以及将对应的事件发送到mq，这两个动作是可以实现事务性的。也就是实现数据分发的事务性。</p>
-<h2 id="数据聚合join"><a href="#数据聚合join" class="headerlink" title="数据聚合join"></a>数据聚合join</h2><p>数据库join的动作，开销是比较大的，并且随着数据量的增大，join操作的开销会越来越大。在分布式的微服务系统中，join问题并没有消失。它从本地的join变成了分布式跨库跨服务的join，也称为服务的聚合Join。</p>
-<h2 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h2><p>传统的单机事务已经有了成熟的落地方案。在spring开发中，开发人员通常只需要添加一个事务注解就可以轻松搞定单库事务。但是在微服务场景下，根据微服务独立数据源思想，如果我们要同时更新两个服务，那就涉及到分布式事务的问题了。</p>
-<h2 id="单体系统解耦拆分"><a href="#单体系统解耦拆分" class="headerlink" title="单体系统解耦拆分"></a>单体系统解耦拆分</h2><p>企业通常从单体单库应用开始发展，当业务和团队规模发展到一定的体量，单体系统就会成为阻碍企业进一步规模化发展的瓶颈。这时候就需要对单体系统进行拆分。</p>
+<h3 id="模式二：变更数据捕获（Change-Data-Capture-CDC）"><a href="#模式二：变更数据捕获（Change-Data-Capture-CDC）" class="headerlink" title="模式二：变更数据捕获（Change Data Capture,CDC）"></a>模式二：变更数据捕获（Change Data Capture,CDC）</h3><p>它利用了数据库的事务日志，一般数据库对于变更提交操作，会记录到所谓的事务日志。比如mysql，它支持binLog。事务日志可以简单理解为，数据库本地的一个文件队列，对于数据库表数据的一些按时间发生的变更提交操作，它会记录到这个文件。<br><img src="https://s1.ax1x.com/2020/07/15/UdFSVs.png" alt="image"><br>例：orderService需要添加一个订单。</p>
+<ol>
+<li>orderService将新订单写入order表，并且提交。因为这是一次表变更操作，所以这次变更操作会被记录到事务日志中，其中内容包括这次变更的数据。</li>
+<li>引入一个称为Transaction log miner的角色，miner负责订阅在事务日志队列上面，如果有新的变更记录，miner会捕获到变更记录。</li>
+<li>miner会将变更记录发送到mq。和之前的MessageRelay一样，发送到mq也是一个at least once的语义，消息可能会被重复发送，mq之后的消费者需要做去重。</li>
+</ol>
+<p>cdc技术同样可以保证对order表的修改以及将对应的事件发送到mq，这两个动作可以实现事务性，也就是可以实现数据分发的事务性。</p>
+<p>企业级的CDC开源项目：</p>
+<ul>
+<li>阿里Canal(<a href="https://github.com/alibaba/canal" target="_blank" rel="noopener">https://github.com/alibaba/canal</a>)</li>
+<li>Readhat Debezium</li>
+<li>Zendesk Maxwell</li>
+<li>Airbnb SpinalTap<h1 id="数据聚合join"><a href="#数据聚合join" class="headerlink" title="数据聚合join"></a>数据聚合join</h1>数据库join的动作，开销是比较大的，并且随着数据量的增大，join操作的开销会越来越大。在分布式的微服务系统中，join问题并没有消失。它从本地的join变成了分布式跨库跨服务的join，也称为服务的聚合Join。</li>
+</ul>
+<h3 id="1-单库join的问题："><a href="#1-单库join的问题：" class="headerlink" title="1. 单库join的问题："></a>1. 单库join的问题：</h3><p>join是一种比较复杂的运算，是有开销的，当数据量少的时候，这种开销还能接收。但是当企业规模逐渐变大，数据库中的数据量和复杂度也会越变越大，相应的join的开销也会越变越大。于是join慢的问题，也会更突出。通常表现为用户查询慢，严重的时候可能会导致数据库繁忙、不响应或者是宕机。单库join慢的问题，是目前具有一定流量网站的普遍的痛点问题。</p>
+<h3 id="2-分布式聚合join的问题："><a href="#2-分布式聚合join的问题：" class="headerlink" title="2. 分布式聚合join的问题："></a>2. 分布式聚合join的问题：</h3><p>如有两个基础领域服务：</p>
+<pre><code>1.customer-service（负责客户数据的管理） 
+
+2.order-service（负责订单数据的管理）</code></pre><p>前端页面需要一个支持用户查询历史的订单，既要提供用户的详细信息，也要提供历史订单详情的api，为此我们需要引入一个新的order-history-api服务，它同时去调用order-server和customer-service，获得数据以后，在本地聚合join,然后再对外提供聚合好的客户和订单历史数据。order-history-api所做的事情，就是所谓的分布式聚合join。这个服务有两个专门的称谓，一个叫Aggregator另一个叫Backend for Frontend，也称BFF服务。 BFF的主要工作也就是分布式聚合join。</p>
+<p>在大部分场景下，分布式聚合服务是可以满足需求，但是它也同样面临聚合join的几个问题，并且还引入了新的问题。</p>
+<ul>
+<li><p>N+1：有些时候，为了获取A服务和B服务的聚合数据，可能A只需要调用一次，而B可能需要调用N次才能够获得完整的数据</p>
+</li>
+<li><p>数据量：聚合服务需要把A和B的服务都加载到本地内存，然后才能进行聚合运算。当访问量大的时候，聚合服务会占用大量的内存开销，严重情况下可能会造成内存被撑爆。</p>
+</li>
+<li><p>性能开销：随着后台服务的数据量越来越大，总体聚合服务的性能也会随着越变越慢。如果不做缓存的话，这种分布式聚合对于每次的请求都会重复执行和运算的，会白白消耗大量的CPU、内存这些计算资源。</p>
+</li>
+</ul>
+<h3 id="3-数据分发-预聚合"><a href="#3-数据分发-预聚合" class="headerlink" title="3. 数据分发+预聚合"></a>3. 数据分发+预聚合</h3><p><img src="https://s1.ax1x.com/2020/07/15/UdNg0J.png" alt="image"></p>
+<pre><code>item-service:商品服务
+order-feedback-service:订单反馈服务
+item-feedback-service:前端业务需要的商品反馈服务</code></pre><p>如果用BFF服务来实现，前端业务到item-feedback-service查询需要的数据，item-feedback-service需要调用item-service和order-feedback-service服务获取数据，获得数据以后，在本地聚合，然后再对外提供聚合好的数据。这样的方式每次查询计算量太大，性能无法满足要求。</p>
+<br/>
+我们可以使用上面讲到的数据分发技术，当item-service或order-feedback-service有数据变更的时候，我们把它们的变更，通过数据分发技术分发到item-feedback-service，这个服务可以根据本地的数据，以及发送过来的变更数据，实时或者近实时的聚合计算出商品反馈数据。然后存入本地的数据库缓存起来。这个就是数据分发+预聚合的思路。这个方式和BFF方式的区别是，BFF对于每次请求都要触发重复计算，而这种方式是一次性预先聚合好，并缓存起来，后面所有的查询都是查询的缓存数据。这种方式可以大大提升查询的性能。
+<br/>
+<br/>
+数据分发+预聚合的方式，在互联网领域又名CQRS(Command Query Responsibility  Segregation（命令查询职责分离模式）)。
+<br/>
+<br/>
+CQRS和最终一致性
+采用CQRS后，从命令端写入数据，然后变更数据分发到查询端，查询端再聚合生成生成视图。中间难免会会存在网络和聚合计算的延迟，所以这个模式并不保证写入和查询数据的强一致性，而是演变成最终一致性。最终一致性会带来ui更新的问题。为了解决ui更新的问题，一般会有三种更新策略。
+
+<ol>
+<li>乐观更新：UI在发出请求后，马上更新UI，页面显示更新的数据状态。例如点赞了某条评论，页面马上会显示已点赞，然后页面后台再通过ajax方式查询更新结果，如果确认更新成功那就没有问题，如果更新失败，只需要将页面显示状态回滚就可以了。</li>
+<li>拉模式：UI向命令端发出请求时，请求中带上版本号，然后页面通过ajax轮询的方式，不断请求，并检查更新后的视图版本号是否和请求中的版本号一致，直到版本号匹配为止，也就是说等到完全更新成功或者失败为止。</li>
+<li>发布订阅：UI向命令段发出请求，同时通过websocket等方式订阅查询端，查询端更新好视图后，通过发消息更新页面展示。</li>
+</ol>
+<h1 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h1><p>传统的单机事务已经有了成熟的落地方案。在spring开发中，开发人员通常只需要添加一个事务注解就可以轻松搞定单库事务。但是在微服务场景下，根据微服务独立数据源思想，如果我们要同时更新两个服务，那就涉及到分布式事务的问题了。</p>
+<h1 id="单体系统解耦拆分"><a href="#单体系统解耦拆分" class="headerlink" title="单体系统解耦拆分"></a>单体系统解耦拆分</h1><p>企业通常从单体单库应用开始发展，当业务和团队规模发展到一定的体量，单体系统就会成为阻碍企业进一步规模化发展的瓶颈。这时候就需要对单体系统进行拆分。</p>
 
             </div>
           
